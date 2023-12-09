@@ -1,5 +1,5 @@
 # --- Day 2: Cube Conundrum ---
-from utils.utils import find_all, read_file, timeit
+from utils.utils import read_file
 
 RED_CUBES_THRESHOLD = 12
 GREEN_CUBES_THRESHOLD = 13
