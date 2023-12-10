@@ -1,10 +1,33 @@
 import time
 from functools import wraps
 import re
+from collections import defaultdict
+import multiprocessing
+
 
 def read_file(path):
     with open(path, "r") as f:
         return f.read().split('\n')
+
+
+def read_parted_file(path):
+    """Read a file that has seperated lines into sections"""
+    print('hello1')
+    with open(path, "r") as f:
+        lines = f.read().split('\n')
+        sectioned_lines = defaultdict(list)
+        current_section = ''
+        for line in lines:
+            if ':' in line:
+                line_split = line.strip().split(': ')
+                current_section = line_split[0].replace(':', '')
+                if len(line_split) > 1:
+                    sectioned_lines[current_section] = [line_split[1].strip()]
+                    continue
+            elif line != '':
+                sectioned_lines[current_section].append(line)
+
+        return sectioned_lines
 
 
 def find_all(s, pattern):
@@ -15,11 +38,14 @@ def find_all(s, pattern):
     #     i = s.find(p, i + 1)
     return [idx for idx, s in enumerate(s) if pattern in s]
 
+
 def find_all_numbers(line):
     return {m.start(0): int(m.group(0)) for m in re.finditer("\d+", line)}
 
+
 def find_all_numbers_as_str(line):
     return {m.start(0): m.group(0) for m in re.finditer("\d+", line)}
+
 
 def timeit(func):
     @wraps(func)
@@ -30,4 +56,21 @@ def timeit(func):
         total_time = end_time - start_time
         print(f'Function {func.__name__}{args} {kwargs} Took {total_time:.4f} seconds')
         return result
+
     return timeit_wrapper
+
+
+@timeit
+def parallel_processing(func, start, data_size, threads_num):
+    processes = []
+    thread_data_size = int(data_size / threads_num)
+    for i in range(threads_num):
+        data_start = start + thread_data_size * i
+        data_end = data_start + thread_data_size
+
+        process = multiprocessing.Process(target=func, args=(data_start, data_end))
+        process.start()
+        processes.append(process)
+
+    for process in processes:
+        process.join()

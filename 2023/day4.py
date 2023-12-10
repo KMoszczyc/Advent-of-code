@@ -1,9 +1,5 @@
-# --- Day 3: Gear Ratios ---
-import numpy as np
-import re
-from utils.utils import find_all, read_file, timeit, find_all_numbers, find_all_numbers_as_str
-import itertools
-from collections import Counter, defaultdict
+# --- Day 4: Scratchcards ---
+from utils.utils import read_file
 
 PATH = 'data/day4.txt'
 
