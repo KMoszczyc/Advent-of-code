@@ -10,6 +10,14 @@ def read_file(path):
         return f.read().split('\n')
 
 
+def read_file_with_ints(path):
+    with open(path, "r") as f:
+        lines = f.read().split('\n')
+
+        parsed_lines = [[int(num) for num in line.split()] for line in lines]
+        return parsed_lines
+
+
 def read_parted_file(path):
     """Read a file that has seperated lines into sections, such as:
     bla bla:
@@ -38,6 +46,7 @@ def read_parted_file(path):
 
         return sectioned_lines
 
+
 def read_inline_sectioned_file(path, type):
     """input:
     Time:        55     82     64     90
@@ -55,6 +64,7 @@ def read_inline_sectioned_file(path, type):
             section_key, data = line.split(':')
             sections[section_key] = [type(value) for value in data.split()]
         return sections
+
 
 def find_all(s, pattern):
     """Yields all the positions of the pattern p in the string s."""
