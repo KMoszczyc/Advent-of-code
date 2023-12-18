@@ -3,6 +3,7 @@ from functools import wraps
 import re
 from collections import defaultdict
 import multiprocessing
+import numpy as np
 
 
 def read_file(path):
@@ -16,6 +17,12 @@ def read_file_with_ints(path):
 
         parsed_lines = [[int(num) for num in line.split()] for line in lines]
         return parsed_lines
+
+
+def read_str_grid_file(path):
+    with open(path, "r") as f:
+        lines = f.read().split('\n')
+        return np.array([list(line) for line in lines])
 
 
 def read_parted_file(path):
