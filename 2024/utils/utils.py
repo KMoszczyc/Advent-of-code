@@ -10,6 +10,9 @@ def read_file(path):
     with open(path, "r") as f:
         return f.read().split('\n')
 
+def read_file_by_split(path, split):
+    with open(path, "r") as f:
+        return f.read().split(split)
 
 def read_file_with_ints(path):
     with open(path, "r") as f:
