@@ -57,7 +57,7 @@ def read_parted_file(path):
         return sectioned_lines
 
 
-def read_inline_sectioned_file(path, type):
+def read_inline_sectioned_file(path, key_type, value_type):
     """input:
     Time:        55     82     64     90
     Distance:   246   1441   1012   1111
@@ -70,11 +70,28 @@ def read_inline_sectioned_file(path, type):
         raw_lines = f.read().split('\n')
         sections = {}
         for line in raw_lines:
-            print(line)
+            # print(line)
             section_key, data = line.split(':')
-            sections[section_key] = [type(value) for value in data.split()]
+            sections[key_type(section_key)] = [value_type(value) for value in data.split()]
         return sections
 
+def read_inline_sectioned_file_into_list_of_tuples(path, key_type, value_type):
+    """input:
+    Time:        55     82     64     90
+    Distance:   246   1441   1012   1111
+
+    output:{ 'Time': [55, 82, 64, 90],
+    ...}
+
+    """
+    with open(path, "r") as f:
+        raw_lines = f.read().split('\n')
+        sections = []
+        for line in raw_lines:
+            # print(line)
+            section_key, data = line.split(':')
+            sections.append((key_type(section_key), [value_type(value) for value in data.split()]))
+        return sections
 
 def find_all(s, pattern):
     """Yields all the positions of the pattern p in the string s."""
