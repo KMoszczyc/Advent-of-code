@@ -38,9 +38,6 @@ def is_equation_possible(source_result, numbers, operator_combinations):
 
 
 def calculate_result(numbers, operators):
-    if len(numbers) - 1 != len(operators):
-        raise Exception(f'There must be {len(numbers) - 1} operators! Not {len(operators)}: {operators}')
-
     result = numbers[0]
     for i in range(1, len(numbers)):
         result = apply_operator(result, numbers[i], operators[i - 1])
@@ -59,16 +56,15 @@ def apply_operator(num1, num2, operator):
             raise Exception(f'Unknown operator: {operator}')
 
 
-def generate_combinations(min, max, available_operators):
-    combinations = {}
-    for i in range(min, max):
-        combinations[i] = list(itertools.product(available_operators, repeat=i))
-    return combinations
+def generate_combinations(min_operators_num, max_operators_num, available_operators):
+    return {
+        i: list(itertools.product(available_operators, repeat=i))
+        for i in range(min_operators_num, max_operators_num)
+    }
 
 
 def part2(calibrations):
-    result = part1(calibrations, operators=['+', '*', '||'])
-    return result
+    return part1(calibrations, operators=['+', '*', '||'])
 
 
 @timeit
