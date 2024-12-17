@@ -27,6 +27,12 @@ def read_str_grid_file(path):
         lines = f.read().split('\n')
         return np.array([list(line) for line in lines])
 
+def read_int_grid_file(path):
+    with open(path, "r") as f:
+        lines = f.read().split('\n')
+        return np.array([[int(num)for num in list(line)] for line in lines])
+
+
 
 def read_parted_file(path):
     """Read a file that has seperated lines into sections, such as:
