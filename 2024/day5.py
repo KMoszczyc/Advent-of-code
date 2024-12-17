@@ -1,8 +1,5 @@
-# --- Day 4: Ceres Search ---
-from utils.utils import find_all, read_file, timeit, read_file_with_ints, read_file_by_split
-from collections import Counter
-import re
-import numpy as np
+# --- Day 5: Print Queue ---
+from utils.utils import read_file_by_split
 
 PATH = 'data/day5.txt'
 TEST_PATH = 'data/test/day5.txt'

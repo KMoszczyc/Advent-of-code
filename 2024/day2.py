@@ -1,6 +1,5 @@
-# --- Day 1: Historian Hysteria ---
-from utils.utils import find_all, read_file, timeit, read_file_with_ints
-from collections import Counter
+# --- Day 2: Red-Nosed Reports ---
+from utils.utils import timeit, read_file_with_ints
 
 PATH = 'data/day2.txt'
 

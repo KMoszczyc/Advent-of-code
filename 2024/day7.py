@@ -1,14 +1,8 @@
 # --- Day 7: Bridge Repair ---
-import functools
-from copy import deepcopy
-
-from utils.utils import find_all, read_file, timeit, read_file_with_ints, read_file_by_split, read_str_grid_file, read_inline_sectioned_file_into_list_of_tuples
-from collections import Counter
+from utils.utils import timeit, read_inline_sectioned_file_into_list_of_tuples
 import itertools
-import re
 import numpy as np
 import sys
-from dataclasses import dataclass
 
 np.set_printoptions(threshold=sys.maxsize)
 PATH = 'data/day7.txt'

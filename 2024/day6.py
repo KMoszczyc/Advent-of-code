@@ -1,9 +1,7 @@
-# --- Day 4: Ceres Search ---
+# --- Day 6: Guard Gallivant ---
 from copy import deepcopy
 
-from utils.utils import find_all, read_file, timeit, read_file_with_ints, read_file_by_split, read_str_grid_file
-from collections import Counter
-import re
+from utils.utils import read_str_grid_file
 import numpy as np
 import sys
 from dataclasses import dataclass

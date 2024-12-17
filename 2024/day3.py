@@ -1,6 +1,5 @@
-# --- Day 1: Historian Hysteria ---
-from utils.utils import find_all, read_file, timeit, read_file_with_ints
-from collections import Counter
+# --- Day 3: Mull It Over ---
+from utils.utils import read_file, timeit
 import re
 
 PATH = 'data/day3.txt'
@@ -12,11 +11,9 @@ def parse_int(s):
     except ValueError:
         return None
 
-
 def part1(code):
     pattern = re.compile(r"mul\((\d+),(\d+)\)", re.IGNORECASE)
     return sum(int(x) * int(y) for x, y in re.findall(pattern, code))
-
 
 def part2(code):
     do = r"do\(\)"

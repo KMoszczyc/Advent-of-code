@@ -1,5 +1,5 @@
 # --- Day 1: Historian Hysteria ---
-from utils.utils import find_all, read_file, timeit, read_file_with_ints
+from utils.utils import timeit, read_file_with_ints
 from collections import Counter
 
 PATH = 'data/day1.txt'
