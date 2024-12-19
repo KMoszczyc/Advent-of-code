@@ -23,19 +23,15 @@ def solve(grid):
             visited_neighbours = [neighbour for neighbour in same_plant_neighbours if visited[neighbour]]
             neighbouring_region_ids = list(set([pos_to_region_id[neighbour] for neighbour in visited_neighbours if neighbour in pos_to_region_id]))
             if len(neighbouring_region_ids) == 0:  # create new region
-                # print('Create new region')
                 region_id = grid[pos] + str(region_id_count)
                 regions[region_id] = [pos]
                 pos_to_region_id[pos] = region_id
                 region_id_count += 1
             elif len(neighbouring_region_ids) == 1:  # add to existing neighbouring region
-                # print('Add to existing region')
                 pos_to_region_id[pos] = neighbouring_region_ids[0]
                 regions[neighbouring_region_ids[0]].append(pos)
             elif len(neighbouring_region_ids) > 1:  # merge regions:
-                # print('Merge regions')
                 merge_region_id = neighbouring_region_ids[0]
-                # add plant to merge region
                 pos_to_region_id[pos] = merge_region_id
                 regions[merge_region_id].append(pos)
 
@@ -46,8 +42,6 @@ def solve(grid):
                     assign_plants_to_new_region(region_members, merge_region_id, pos_to_region_id)
                     regions[merge_region_id].extend(region_members)
                     del regions[region_id]
-
-            # print(pos, grid[pos], same_plant_neighbours , visited_neighbours, regions, neighbouring_region_ids)
 
     p1 = [calculate_price_p1(region_id, region_members) for region_id, region_members in regions.items()]
     p2 = [calculate_price_p2(region_id, region_members, pos_to_region_id) for region_id, region_members in regions.items()]
@@ -68,7 +62,6 @@ def calculate_price_p1(region_id, region_members):
     all_combinations = list(itertools.combinations(region_members, 2))
     neighbour_counts = defaultdict(int)
     if not all_combinations:  # only 1 member so area = 1, fence = 4
-        # print(region_id, region_members, neighbour_counts, 1, 4)
         return 4 * 1
 
     for pos1, pos2 in all_combinations:
@@ -78,17 +71,15 @@ def calculate_price_p1(region_id, region_members):
 
     area = len(region_members)
     fence = sum(4 - count for pos, count in neighbour_counts.items())
-    # print(region_id, region_members, neighbour_counts, area, fence)
     return area * fence
 
 
 def calculate_price_p2(region_id, region_members, pos_to_region_id):
-    # print('====================== P2 =======================')
-    all_combinations = list(itertools.combinations(region_members, 2))
-    if not all_combinations:  # only 1 member so area = 1, fence = 4
+    if len(region_members)==1:
         # print(region_id, region_members, neighbour_counts, 1, 4)
         return 4 * 1
 
+    # group by xs and ys and sort em so its easier to find sides
     pos_grouped_by_y = defaultdict(list)
     for y, x in region_members:
         pos_grouped_by_y[y].append((y, x))
@@ -166,6 +157,8 @@ def calculate_price_p2(region_id, region_members, pos_to_region_id):
     print(region_id, topside_count, bottomside_count, leftside_count, rightside_count, 'area:', area, 'sides:', sides)
 
     return area * sides
+
+
 
 
 def get_left(pos_to_region_id, x, y):
